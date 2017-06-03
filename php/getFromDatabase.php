@@ -32,7 +32,7 @@
 		for ($i=0; $i < $tableLength; $i++){
 			$table = $_POST['table'][$i];
 			try{
-				$sql = 'SELECT `' . $table . '` FROM `collector` ';//WHERE id = ' . $data;
+				$sql = 'SELECT `' . $table . '` FROM `collector` ';
 				$rows = $pdo->query($sql);
 				
 				foreach ($rows as $row){
@@ -50,7 +50,6 @@
 		// 			try{
 		// 				$sql = 'SELECT * FROM `' . $table . '` WHERE id = ' . $data;
 		// 				$rows = $pdo->query($sql);
-						
 		// 				foreach ($rows as $row){
 		// 					$response[$table][] = ['value' => $data['value']];
 		// 				}

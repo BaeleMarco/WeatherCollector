@@ -44,12 +44,13 @@ window.onresize = function(event){
 // 	changeGraph($('div.row.checkboxes')[0].innerText)
 // },10000)
 
-$('div.row.checkboxes').on('change',function(e){ changeGraph(e) });
+$('div.row.checkboxes').on('change',function(e){ e.preventDefault(); changeGraph(e) });
 
 
 var pointRadius = 5;
 var title = '';
-var datapoints = [0, 20, 20, 60, 60, 120, 180, 120, 125, 105, 110, 170, 110, 105, 125, 120, 180, 120, 60, 60, 20, 20, 0, 0, 20, 20, 60, 60, 120, 180, 120, 125, 105, 110, 170, 110, 105, 125, 120, 180, 120, 60, 60, 20, 20, 0];
+var labels = [0,50];
+var datapoints = [50,50];
 
 // var color = Chart.helpers.color;
 // backgroundColor: color(window.chartColors.red).alpha(0.1).rgbString(),
@@ -148,7 +149,7 @@ function ajaxCall(table,query){
 			dataType: "json"
 		}).done(function(data){
 			var returnedData = data
-			// window.myLine.destroy()
+			window.myLine.destroy()
 			var color = ''
 			//Clear the excisting line graphs
 			config.data.datasets = []
@@ -213,9 +214,6 @@ function ajaxCall(table,query){
 			window.myLine.destroy();
 	})
 }
-$('sexy.fien').on('click',function(e){
-	e.preventDefault();
-})
 // $('.fixed-action-btn').openFAB();
 // $('.fixed-action-btn').closeFAB();
 // $('.fixed-action-btn.toolbar').openToolbar();
