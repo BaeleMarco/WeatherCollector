@@ -114,14 +114,29 @@ window.onload = function(){
 /*---------*/
 function changeGraph(e){
 	var table = []
-	if(typeof e == "string") inputs = e.split(' ')
-	if( typeof e == "object") inputs = e.currentTarget.innerText.split(' ')
+	// console.log(e)
+	if(typeof e == "string")
+	{
+		inputs = []
+		e = e.replace(/Air /g,'Air-')
+		e = e.replace(/Wind /g,'Wind-')
+		e = e.replace(/Rain /g,'Rain-')
+		inputs = e.split(' ')
+	}
+	if(typeof e == "object")
+	{
+		inputs = []
+		values = e.currentTarget.innerHTML.split('id="')
+		for (var i = 1; i < values.length; i++){
+			inputs.push(values[i].substr(0,values[i].search('"')).replace(' ', '-'))
+		}
+	}
 	for (var i = 0; i < inputs.length; i++){
 		if($('#' + inputs[i]).is(':checked')) table.push(inputs[i])
 	}
-	
 	var query = 'selectAll'
 	ajaxCall(table,query)
+	console.log(table)
 }
 
 function ajaxCall(table,query){
@@ -134,56 +149,67 @@ function ajaxCall(table,query){
 			},
 			dataType: "json"
 		}).done(function(data){
-			window.myLine.destroy();
-			var color = ''
-			config.data.datasets = []
 			var returnedData = data
+			// window.myLine.destroy()
+			var color = ''
+			//Clear the excisting line graphs
+			config.data.datasets = []
 
 			config.options.animation.duration = 0;
-			for (var i = 0; i < table.length; i++){
-				if(returnedData != {}){
-					dataArray = []
-					config.data.labels = []
-					for (var o = 0; o < returnedData[table[i]].length; o++){
-						if(o != 0){
-							var dateArray = returnedData[table[0]][o].date.split('-')
-							if(returnedData[table[0]][o].date == returnedData[table[0]][o-1].date){
-								var timeArray = returnedData[table[0]][o].time.split(':')
-								var timeWithoutSeconds = timeArray[0] + ':' + timeArray[1]
-								config.data.labels.push(timeWithoutSeconds)
-							}else if(dateArray[0] == returnedData[table[0]][o-1].date.slice(0,4)){
-								config.data.labels.push(dateArray[1] + '-' + dateArray[2])
+			if(returnedData != {}){
+				for (var i = 0; i < table.length; i++){
+					try{
+						dataArray = []
+						config.data.labels = []
+						//Label the values
+						//Needs fine-tuning
+						console.log(returnedData)
+						for (var o = 0; o < returnedData.Dates.length; o++){
+							if(o != 0){
+								var dateArray = returnedData.Dates[o].date.split('-')
+								if(returnedData.Dates[o].date == returnedData.Dates[o-1].date){
+									var timeArray = returnedData.Dates[o].time.split(':')
+									var timeWithoutSeconds = timeArray[0] + ':' + timeArray[1]
+									config.data.labels.push(timeWithoutSeconds)
+								}else if(dateArray[0] == returnedData.Dates[o-1].date.slice(0,4)){
+									config.data.labels.push(dateArray[1] + '-' + dateArray[2])
+								}else{
+									config.data.labels.push(returnedData.Dates[o].date)
+								}
 							}else{
-								config.data.labels.push(returnedData[table[0]][o].date)
+								config.data.labels.push(returnedData.Dates[o].date)
 							}
-						}else{
-							config.data.labels.push(returnedData[table[0]][o].date)
+						}
+						// Add the correct value's
+						for (var o = 0; o < returnedData[table[i]].length; o++){
+							dataArray.push(returnedData[table[i]][o].value)
+						}
+						//Non changing colors for each 
+						for (var o = 0; o < window.chartColors.length; o++){
+							if (window.chartColors[o][0] == table[i]) {
+								color = window.chartColors[o][1]
+							}
+						};
+						config.data.datasets.push(
+							{
+								label: table[i].replace('-', ' '),
+								data: dataArray,
+								
+								backgroundColor: color,
+								borderColor: color,
+								fill: false,
+								pointRadius: pointRadius,
+								pointHoverRadius: pointRadius + 3,
+								lineTension: 0,
+								showLine: true
+							},
+						)
+					}catch(error){
+						console.log(typeof returnedData[table[i]].error)
+						if(typeof returnedData[table[i]].error != 'undefined'){
+							console.log(returnedData[table[i]][0].error.errorInfo[2].split('\'')[1])
 						}
 					}
-					//Add the correct value's
-					for (var o = 0; o < returnedData[table[i]].length; o++){
-						dataArray.push(returnedData[table[i]][o].value)
-					}
-					//Non changing colors for each 
-					for (var o = 0; o < window.chartColors.length; o++){
-						if (window.chartColors[o][0] == table[i]) {
-							color = window.chartColors[o][1]
-						}
-					};
-					config.data.datasets.push(
-						{
-							label: table[i],
-							data: dataArray,
-							
-							backgroundColor: color,
-							borderColor: color,
-							fill: false,
-							pointRadius: pointRadius,
-							pointHoverRadius: pointRadius + 3,
-							lineTension: 0,
-							showLine: true
-						},
-					)
 				}
 			}
 			window.myLine = new Chart(ctx, config);
@@ -191,6 +217,9 @@ function ajaxCall(table,query){
 			window.myLine.destroy();
 	})
 }
+$('sexy.fien').on('click',function(e){
+	e.preventDefault();
+})
 // $('.fixed-action-btn').openFAB();
 // $('.fixed-action-btn').closeFAB();
 // $('.fixed-action-btn.toolbar').openToolbar();

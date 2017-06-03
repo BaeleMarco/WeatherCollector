@@ -8,7 +8,8 @@ nav div ul.mobile-nav{ position: fixed; text-align: right; background-color: #FF
 nav div ul.mobile-nav li{ float: none; }
 nav div ul.mobile-nav li a{ color: #000; padding: 0 25px; }
 nav div ul li a{ color: #DDD; }
-nav div ul li a.active{ height: 64px; color: #FFF; border-bottom: 2px white solid; box-sizing: border-box; }
+nav div ul li a.active{ height: 64px; color: #FFF; background-color: rgba(0,0,0,0.1); }
+nav div ul li a.active:hover{ background-color: rgba(0,0,0,0.1); }
 
 /*----*/
 /*BODY*/
@@ -17,11 +18,16 @@ h1{ font-size: 36px; }
 h2{ font-size: 32px; }
 h3{ font-size: 28px; }
 h4{ font-size: 24px; }
+h5{ font-size: 16px; }
 p{ line-height: 1.2em; }
 canvas{ max-height: 500px; }
-div.progress{ margin-top: 0; border-radius: 0; }
+div.progress{ margin-top: 0; border-radius: 0; height: 5px; }
 ul.pagination li.active{ background-color: #446D2D; }
 div.checkboxes{ padding: 15px; }
+div.realtime.row{ text-align: center; }
+div.realtime.row div.col{ text-align: center; min-width: 124px; }
+div.circle{ position: relative; width: 100px; height: 100px; padding-top: 30px; text-align: center; border-radius: 100px; border: 10px solid rgb(54, 162, 235); float: left; }
+div.circle div.inner-box{ position: absolute; text-align: center; padding: 7px; margin-left: 10px; width: 60px; height: 30px; bottom: -10px; border: 1px solid lightgray; background-color: white; }
 .col-xs-12, .col-sm-4, .col-md-4, .col-lg-4 img{ width: 100%; margin-top: 15px;  text-align: center; }
 
 
@@ -47,6 +53,12 @@ footer.fixed-footer{ position: fixed; bottom: 0; width: 100%; }
 .lightgreen-text{ color: #73BA4C; }
 .green-text{ color: #64A043; }
 .darkgreen-text{ color: #446D2D; }
+.red-border{ border-color: rgb(255, 99, 132) !important; }
+.blue-border{ border-color: rgb(54, 162, 235) !important; }
+.orange-border{ border-color: rgb(255, 159, 64) !important; }
+.yellow-border{ border-color: rgb(255, 205, 86) !important; }
+.green-border{ border-color: rgb(75, 192, 192) !important; }
+.purple-border{ border-color: rgb(153, 102, 255) !important; }
 .hidden{ display: none; }
 .warning{ font-size: 11px; color: red; }
 p.warning{ padding-left: 35px; }
@@ -60,8 +72,13 @@ p.warning{ padding-left: 35px; }
 /*------------*/
 @media screen and (max-width: 600px)
 {
-	nav img.logo{ width: 68px; }
+	nav img.logo{ height: 58px; }
 }
+
+@media screen and (max-width: 1024px)
+{
+	div.realtime.row div.col{ min-width: 119px; }
+	div.realtime.row div.col h5{ min-height: 35px; }
 
 
 /* #######################################################
@@ -228,3 +245,5 @@ http://vladimirkudinov.com
 	display: block;
 	clear: both;
 }
+
+sexy.fien{ position: absolute; width: 50px; height: 50px; content: ' '; }
