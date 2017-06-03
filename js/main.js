@@ -19,6 +19,12 @@ window.setInterval(function(){
 	}
 }, 1);
 
+// window.setInterval(function(){
+	//Refreshing the realtime data every 5 seconds
+    updatePage($('div.row.checkboxes')[0].innerText,'selectLast')
+// }, 5000);
+
+
 /*---*/
 /*NAV*/
 /*---*/
@@ -36,24 +42,14 @@ $('.close-collapse').on('click',function(e){
 /*-----*/
 //Update onresize because default graph is empty
 window.onresize = function(event){
-    changeGraph($('div.row.checkboxes')[0].innerText)
+    updatePage($('div.row.checkboxes')[0].innerText,'selectAll')
 }
 
-/*IF */
-// window.setInterval(function(){
-// 	changeGraph($('div.row.checkboxes')[0].innerText)
-// },10000)
+$('div.row.checkboxes').on('change',function(e){ e.preventDefault(); updatePage(e,'selectAll') });
 
-$('div.row.checkboxes').on('change',function(e){ e.preventDefault(); changeGraph(e) });
-
-
-var pointRadius = 5;
+var pointRadius = 4;
 var title = '';
-var labels = [0,50];
-var datapoints = [50,50];
 
-// var color = Chart.helpers.color;
-// backgroundColor: color(window.chartColors.red).alpha(0.1).rgbString(),
 var config = {
 	type: 'line',
 	data: {
@@ -107,20 +103,18 @@ window.onload = function(){
 	window.myLine = new Chart(ctx, config);
 
 	//Make one before changing it
-	changeGraph($('div.row.checkboxes')[0].innerText)
+	updatePage($('div.row.checkboxes')[0].innerText,'selectAll')
 };
 
 /*---------*/
 /*FUNCTIONS*/
 /*---------*/
-function changeGraph(e){
+function updatePage(e,query){
 	var table = []
 	if(typeof e == "string")
 	{
 		inputs = []
-		e = e.replace(/Air /g,'Air-')
-		e = e.replace(/Wind /g,'Wind-')
-		e = e.replace(/Rain /g,'Rain-')
+		e = e.replace(/Air /g,'Air-').replace(/Wind /g,'Wind-').replace(/Rain /g,'Rain-')
 		inputs = e.split(' ')
 	}
 	if(typeof e == "object")
@@ -134,7 +128,6 @@ function changeGraph(e){
 	for (var i = 0; i < inputs.length; i++){
 		if($('#' + inputs[i]).is(':checked')) table.push(inputs[i])
 	}
-	var query = 'selectAll'
 	ajaxCall(table,query)
 }
 
@@ -149,67 +142,95 @@ function ajaxCall(table,query){
 			dataType: "json"
 		}).done(function(data){
 			var returnedData = data
-			window.myLine.destroy()
-			var color = ''
-			//Clear the excisting line graphs
-			config.data.datasets = []
+			if(query == 'selectAll'){
+				window.myLine.destroy()
+				var color = ''
+				//Clear the excisting line graphs
+				config.data.datasets = []
 
-			config.options.animation.duration = 0;
-			if(returnedData != {}){
-				for (var i = 0; i < table.length; i++){
-					try{
-						dataArray = []
-						config.data.labels = []
-						//Label the values
-						//Needs fine-tuning
-						for (var o = 0; o < returnedData.Dates.length; o++){
-							if(o != 0){
-								var dateArray = returnedData.Dates[o].date.split('-')
-								if(returnedData.Dates[o].date == returnedData.Dates[o-1].date){
-									var timeArray = returnedData.Dates[o].time.split(':')
-									var timeWithoutSeconds = timeArray[0] + ':' + timeArray[1]
-									config.data.labels.push(timeWithoutSeconds)
-								}else if(dateArray[0] == returnedData.Dates[o-1].date.slice(0,4)){
-									config.data.labels.push(dateArray[1] + '-' + dateArray[2])
+				config.options.animation.duration = 0;
+				if(returnedData != {}){
+					for (var i = 0; i < table.length; i++){
+						try{
+							dataArray = []
+							config.data.labels = []
+							//Label the values
+							//Needs fine-tuning
+							for (var o = 0; o < returnedData.Dates.length; o++){
+								if(o != 0){
+									var dateArray = returnedData.Dates[o].date.split('-')
+									if(returnedData.Dates[o].date == returnedData.Dates[o-1].date){
+										var timeArray = returnedData.Dates[o].time.split(':')
+										var timeWithoutSeconds = timeArray[0] + ':' + timeArray[1]
+										config.data.labels.push(timeWithoutSeconds)
+									}else if(dateArray[0] == returnedData.Dates[o-1].date.slice(0,4)){
+										config.data.labels.push(dateArray[1] + '-' + dateArray[2])
+									}else{
+										config.data.labels.push(returnedData.Dates[o].date)
+									}
 								}else{
 									config.data.labels.push(returnedData.Dates[o].date)
 								}
-							}else{
-								config.data.labels.push(returnedData.Dates[o].date)
 							}
-						}
-						// Add the correct value's
-						for (var o = 0; o < returnedData[table[i]].length; o++){
-							dataArray.push(returnedData[table[i]][o].value)
-						}
-						//Non changing colors for each 
-						for (var o = 0; o < window.chartColors.length; o++){
-							if (window.chartColors[o][0] == table[i]) {
-								color = window.chartColors[o][1]
+							// Add the correct value's
+							for (var o = 0; o < returnedData[table[i]].length; o++){
+								dataArray.push(returnedData[table[i]][o].value)
 							}
-						};
-						config.data.datasets.push(
-							{
-								label: table[i].replace('-', ' '),
-								data: dataArray,
-								
-								backgroundColor: color,
-								borderColor: color,
-								fill: false,
-								pointRadius: pointRadius,
-								pointHoverRadius: pointRadius + 3,
-								lineTension: 0,
-								showLine: true
-							},
-						)
-					}catch(error){
-						if(typeof returnedData[table[i]].error != 'undefined'){
-							console.log(returnedData[table[i]][0].error.errorInfo[2].split('\'')[1])
+							//Non changing colors for each 
+							for (var o = 0; o < window.chartColors.length; o++){
+								if (window.chartColors[o][0] == table[i]) {
+									color = window.chartColors[o][1]
+								}
+							};
+							config.data.datasets.push(
+								{
+									label: table[i].replace('-', ' '),
+									data: dataArray,
+									
+									backgroundColor: color,
+									borderColor: color,
+									fill: false,
+									pointRadius: pointRadius,
+									pointHoverRadius: pointRadius + 2,
+									lineTension: 0,
+									showLine: true
+								},
+							)
+						}catch(error){
+							if(typeof returnedData[table[i]].error != 'undefined'){
+								console.log(returnedData[table[i]][0].error.errorInfo[2].split('\'')[1])
+							}
 						}
 					}
 				}
+				window.myLine = new Chart(ctx, config);
+			}else if(query == 'selectLast'){
+				inputs = []
+				e = $('div.row.checkboxes')[0].innerText
+				e = e.replace(/Air /g,'Air-').replace(/Wind /g,'Wind-').replace(/Rain /g,'Rain-')
+				inputs = e.split(' ')
+
+				var realtimes = $('div.col.s6.m4.l2')
+				for (var i = 0; i < realtimes.length; i++) {
+					realtimes[i].lastElementChild.firstElementChild.innerHTML = returnedData[0][inputs[i]]
+					if(inputs[i] != 'Wind-direction'){
+						var diffrence = returnedData[0][inputs[i]] - returnedData[1][inputs[i]];
+						var specialSign = '&#9679;'
+						if(diffrence > 0){
+							//+
+							specialSign = '&#x25B2;'
+						}else if(diffrence < 0){
+							//-
+							specialSign = '&#x25BC;'
+						}
+						realtimes[i].lastElementChild.lastElementChild.innerHTML = specialSign + ' ' + diffrence
+					}else{
+						realtimes[i].lastElementChild.lastElementChild.innerHTML = returnedData[1][inputs[i]]
+					}
+				}
+			}else{
+				window.myLine.destroy();
 			}
-			window.myLine = new Chart(ctx, config);
 		}).error(function(data){
 			window.myLine.destroy();
 	})

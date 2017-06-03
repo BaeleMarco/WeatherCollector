@@ -26,17 +26,29 @@ ul.pagination li.active{ background-color: #446D2D; }
 div.checkboxes{ padding: 15px; }
 div.realtime.row{ text-align: center; }
 div.realtime.row div.col{ text-align: center; min-width: 124px; display: flex; flex-direction: column; align-items: center; }
-div.circle{ position: relative; width: 100px; height: 100px; padding-top: 30px; text-align: center; border-radius: 100px; border: 10px solid rgb(54, 162, 235); float: left; }
-div.circle div.inner-box{ position: absolute; text-align: center; padding: 7px; margin-left: 10px; width: 60px; height: 30px; bottom: -10px; border: 1px solid lightgray; background-color: white; }
-.col-xs-12, .col-sm-4, .col-md-4, .col-lg-4 img{ width: 100%; margin-top: 15px;  text-align: center; }
+div.circle{ position: relative; width: 100px; height: 100px; padding-top: 30px; text-align: center; border-radius: 100px; border: 10px solid rgb(54, 162, 235); float: left; display: flex; flex-direction: column; align-items: center; }
+div.circle div.inner-box{ position: absolute; text-align: center; padding: 7px; min-width: 60px; height: 30px; bottom: -10px; border: 1px solid lightgray; background-color: white; }
+.col-xs-12, .col-sm-4, .col-md-4, .col-lg-4 img{ width: 100%; margin-top: 15px; text-align: center; }
 
-
+/*----------*/
 /*IMPORTANTS*/
+/*----------*/
+/*Because materializedcss uses important too*/
 button.btn:focus{ background-color: #446D2D !important; }
 input[type="text"]:focus,input[type="email"]:focus,input[type="date"]:focus,textarea:focus{ border-bottom-color: #64A043 !important; box-shadow: 0 1px 0 0 #64A043 !important; }
 input[type="text"]:focus + label, input[type="email"]:focus + label, input[type="date"]:focus + label, textarea:focus + label{ color: #64A043 !important; }
-input[type="checkbox"]:checked + label:before{ border-top: 2px solid transparent !important; border-left: 2px solid transparent !important; border-right: 2px solid #64A043 !important; border-bottom: 2px solid #64A043 !important; }
+input[type="checkbox"]:checked + label:before{ border-top: 2px solid transparent !important; border-left: 2px solid transparent !important; border-right: 2px solid black; border-bottom: 2px solid black; }
 .invalid{ font-size: 0.8rem; border-bottom-color: red !important; box-shadow: 0 1px 0 0 red !important; }
+
+/*Because label importants are important :P*/
+label{ color: grey; }
+label[for="Temperature"]:before{ border-color: rgb(255, 99, 132) !important; }
+label[for="Air-pressure"]:before{ border-color: rgb(54, 162, 235) !important; }
+label[for="Air-quality"]:before{ border-color: rgb(75, 192, 192) !important; }
+label[for="Rain-gauge"]:before{ border-color: rgb(255, 159, 64) !important; }
+label[for="Wind-speed"]:before{ border-color: rgb(255, 205, 86) !important; }
+label[for="Wind-direction"]:before{ border-color: rgb(153, 102, 255) !important; }
+
 
 /*------*/
 /*FOOTER*/

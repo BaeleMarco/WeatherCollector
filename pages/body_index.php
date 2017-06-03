@@ -4,50 +4,52 @@
 		<div class="col s6 m4 l2">
 			<h5>Temperature</h5>
 			<div class="circle red-border">
-				<span>Tekst</span>
+				<span></span>
 				<div class="inner-box">
-					&#9679; 0.0&deg;
+					&#9679; 0.0&deg;C
 				</div>
 			</div>
 		</div>
 		<div class="col s6 m4 l2">
 			<h5>Air pressure</h5>
 			<div class="circle blue-border">
-				<span>Tekst</span>
+				<span></span>
 				<div class="inner-box">
-					&#x25B2;3.2
+					&#x25B2;3.2Pa
 				</div>
 			</div>
 		</div>
 		<div class="col s6 m4 l2">
 			<h5>Air quality</h5>
 			<div class="circle green-border">
-				<span>Tekst</span>
+				<span></span>
 				<div class="inner-box">
+				%
 				</div>
 			</div>
 		</div>
 		<div class="col s6 m4 l2">
 			<h5>Rain gauge</h5>
 			<div class="circle orange-border">
-				<span>Tekst</span>
+				<span></span>
 				<div class="inner-box">
-					&#x25BC;5.8
+					&#x25BC;5.8m&sup2;
 				</div>
 			</div>
 		</div>
 		<div class="col s6 m4 l2">
 			<h5>Wind speed</h5>
 			<div class="circle yellow-border">
-				<span>Tekst</span>
+				<span></span>
 				<div class="inner-box">
+					m/s
 				</div>
 			</div>
 		</div>
 		<div class="col s6 m4 l2">
 			<h5>Wind direction</h5>
 				<div class="circle purple-border">
-				<span>Tekst</span>
+				<span></span>
 				<div class="inner-box">
 				</div>
 			</div>
@@ -57,7 +59,7 @@
 	<canvas id="canvas" class="graph"></canvas>
 	<div class="row checkboxes graph">
 		<div class="col s6 l3">
-			<input type="checkbox" id="Temperature" checked>
+			<input class="red-border" type="checkbox" id="Temperature" checked>
 			<label for="Temperature">Temperature</label>
 		</div>
 		<div class="col s6 l3">

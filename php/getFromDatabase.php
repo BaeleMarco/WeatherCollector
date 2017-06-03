@@ -32,36 +32,27 @@
 		for ($i=0; $i < $tableLength; $i++){
 			$table = $_POST['table'][$i];
 			try{
-				$sql = 'SELECT `' . $table . '` FROM `collector` ';
-				$rows = $pdo->query($sql);
-				
-				foreach ($rows as $row){
-					$response[$table][] = ['value' => $row[$table]];
+				if(isset($_POST['query']) && !empty($_POST['query']) && $_POST['query'] == 'selectAll'){
+					$sql = 'SELECT `' . $table . '` FROM `collector` ';
+					$rows = $pdo->query($sql);
+					
+					foreach ($rows as $row){
+						$response[$table][] = ['value' => $row[$table]];
+					}
+				}else if(isset($_POST['query']) && !empty($_POST['query']) && $_POST['query'] == 'selectLast'){
+					$sql = 'SELECT * FROM `collector` ORDER BY id DESC LIMIT 2';
+					$rows = $pdo->query($sql);
+
+					//Removing previouse inserted dates
+					$response = [];
+					foreach ($rows as $row) {
+						$response[] = $row;
+					}
 				}
 			}catch(Exception $e){
 				$response[$table][] = ['error' => $e];
 			}
 		}
-		// foreach ($value as $key => $data) {
-		// 	if($key == $table){
-		// 		echo $key . '=>' . $data . '</br>';
-		// 		if(isset($_POST['query']) && !empty($_POST['query']) && $_POST['query'] == 'selectAll'){
-		// 			$response[$table] = [];
-		// 			try{
-		// 				$sql = 'SELECT * FROM `' . $table . '` WHERE id = ' . $data;
-		// 				$rows = $pdo->query($sql);
-		// 				foreach ($rows as $row){
-		// 					$response[$table][] = ['value' => $data['value']];
-		// 				}
-		// 			}catch(Exception $e){
-		// 				$response[$table][] = ['error' => $e];
-		// 			}
-		// 		}
-		// 		// }else if(isset($_POST['query']) && !empty($_POST['query']) && $_POST['query'] == 'selectLast'){
-		// 			// SELECT * FROM Table ORDER BY ID DESC LIMIT 1
-		// 			// SELECT TOP 1 * FROM Table ORDER BY ID DESC
-		// 		// }
-		// 	}
 	}
 	echo json_encode($response);
 ?>
