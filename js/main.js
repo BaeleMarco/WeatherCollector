@@ -114,7 +114,6 @@ window.onload = function(){
 /*---------*/
 function changeGraph(e){
 	var table = []
-	// console.log(e)
 	if(typeof e == "string")
 	{
 		inputs = []
@@ -136,7 +135,6 @@ function changeGraph(e){
 	}
 	var query = 'selectAll'
 	ajaxCall(table,query)
-	console.log(table)
 }
 
 function ajaxCall(table,query){
@@ -163,7 +161,6 @@ function ajaxCall(table,query){
 						config.data.labels = []
 						//Label the values
 						//Needs fine-tuning
-						console.log(returnedData)
 						for (var o = 0; o < returnedData.Dates.length; o++){
 							if(o != 0){
 								var dateArray = returnedData.Dates[o].date.split('-')
@@ -205,7 +202,6 @@ function ajaxCall(table,query){
 							},
 						)
 					}catch(error){
-						console.log(typeof returnedData[table[i]].error)
 						if(typeof returnedData[table[i]].error != 'undefined'){
 							console.log(returnedData[table[i]][0].error.errorInfo[2].split('\'')[1])
 						}
