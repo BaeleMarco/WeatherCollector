@@ -19,12 +19,6 @@ window.setInterval(function(){
 	}
 }, 1);
 
-// window.setInterval(function(){
-	//Refreshing the realtime data every 5 seconds
-    updatePage($('div.row.checkboxes')[0].innerText,'selectLast')
-// }, 5000);
-
-
 /*---*/
 /*NAV*/
 /*---*/
@@ -40,13 +34,6 @@ $('.close-collapse').on('click',function(e){
 /*-----*/
 /*CHART*/
 /*-----*/
-//Update onresize because default graph is empty
-window.onresize = function(event){
-    updatePage($('div.row.checkboxes')[0].innerText,'selectAll')
-}
-
-$('div.row.checkboxes').on('change',function(e){ e.preventDefault(); updatePage(e,'selectAll') });
-
 var pointRadius = 4;
 var title = '';
 
@@ -205,6 +192,7 @@ function ajaxCall(table,query){
 				}
 				window.myLine = new Chart(ctx, config);
 			}else if(query == 'selectLast'){
+				units = ['&deg;C', 'Pa', '%', 'm&sup2;', 'm/s', '']
 				inputs = []
 				e = $('div.row.checkboxes')[0].innerText
 				e = e.replace(/Air /g,'Air-').replace(/Wind /g,'Wind-').replace(/Rain /g,'Rain-')
@@ -212,18 +200,17 @@ function ajaxCall(table,query){
 
 				var realtimes = $('div.col.s6.m4.l2')
 				for (var i = 0; i < realtimes.length; i++) {
-					realtimes[i].lastElementChild.firstElementChild.innerHTML = returnedData[0][inputs[i]]
+					realtimes[i].lastElementChild.firstElementChild.innerHTML = returnedData[0][inputs[i]] + units[i]
 					if(inputs[i] != 'Wind-direction'){
 						var diffrence = returnedData[0][inputs[i]] - returnedData[1][inputs[i]];
 						var specialSign = '&#9679;'
 						if(diffrence > 0){
-							//+
-							specialSign = '&#x25B2;'
+							specialSign = '&#x25B2;' //+
 						}else if(diffrence < 0){
-							//-
-							specialSign = '&#x25BC;'
+							specialSign = '&#x25BC;' //-
+							diffrence = Number(String(diffrence).replace('-', ''))
 						}
-						realtimes[i].lastElementChild.lastElementChild.innerHTML = specialSign + ' ' + diffrence
+						realtimes[i].lastElementChild.lastElementChild.innerHTML = specialSign + ' ' + diffrence + units[i]
 					}else{
 						realtimes[i].lastElementChild.lastElementChild.innerHTML = returnedData[1][inputs[i]]
 					}

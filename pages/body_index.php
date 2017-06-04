@@ -6,7 +6,7 @@
 			<div class="circle red-border">
 				<span></span>
 				<div class="inner-box">
-					&#9679; 0.0&deg;C
+					&deg;C
 				</div>
 			</div>
 		</div>
@@ -15,7 +15,7 @@
 			<div class="circle blue-border">
 				<span></span>
 				<div class="inner-box">
-					&#x25B2;3.2Pa
+					Pa
 				</div>
 			</div>
 		</div>
@@ -33,7 +33,7 @@
 			<div class="circle orange-border">
 				<span></span>
 				<div class="inner-box">
-					&#x25BC;5.8m&sup2;
+					m&sup2;
 				</div>
 			</div>
 		</div>
@@ -57,9 +57,10 @@
 	</div>
 	<h4 class="graph">Graph</h4>
 	<canvas id="canvas" class="graph"></canvas>
+	<p class="info">To edit the graph display, check or uncheck the boxes below.</p>
 	<div class="row checkboxes graph">
 		<div class="col s6 l3">
-			<input class="red-border" type="checkbox" id="Temperature" checked>
+			<input type="checkbox" id="Temperature" checked>
 			<label for="Temperature">Temperature</label>
 		</div>
 		<div class="col s6 l3">
@@ -95,3 +96,16 @@
 		<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
 	</ul>
 </div>
+<script type="text/javascript">
+	// window.setInterval(function(){
+		//Refreshing the realtime data every 5 seconds
+		updatePage($('div.row.checkboxes')[0].innerText,'selectLast')
+	// }, 5000);
+
+	//Update onresize because default graph is empty
+	window.onresize = function(event){
+	    updatePage($('div.row.checkboxes')[0].innerText,'selectAll')
+	}
+
+	$('div.row.checkboxes').on('change',function(e){ e.preventDefault(); $('p.info').hide(); updatePage(e,'selectAll') });
+</script>

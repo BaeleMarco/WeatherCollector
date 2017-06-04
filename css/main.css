@@ -20,14 +20,13 @@ h3{ font-size: 28px; }
 h4{ font-size: 24px; }
 h5{ font-size: 16px; }
 p{ line-height: 1.2em; }
-canvas{ max-height: 500px; }
 div.progress{ margin-top: 0; border-radius: 0; height: 5px; }
 ul.pagination li.active{ background-color: #446D2D; }
 div.checkboxes{ padding: 15px; }
 div.realtime.row{ text-align: center; }
 div.realtime.row div.col{ text-align: center; min-width: 124px; display: flex; flex-direction: column; align-items: center; }
 div.circle{ position: relative; width: 100px; height: 100px; padding-top: 30px; text-align: center; border-radius: 100px; border: 10px solid rgb(54, 162, 235); float: left; display: flex; flex-direction: column; align-items: center; }
-div.circle div.inner-box{ position: absolute; text-align: center; padding: 7px; min-width: 60px; height: 30px; bottom: -10px; border: 1px solid lightgray; background-color: white; }
+div.circle div.inner-box{ position: absolute; text-align: center; padding: 7px; min-width: 70px; height: 30px; bottom: -10px; border: 1px solid lightgray; background-color: white; }
 .col-xs-12, .col-sm-4, .col-md-4, .col-lg-4 img{ width: 100%; margin-top: 15px; text-align: center; }
 
 /*----------*/
