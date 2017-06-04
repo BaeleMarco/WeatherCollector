@@ -26,7 +26,7 @@ div.checkboxes{ padding: 15px; }
 div.realtime.row{ text-align: center; }
 div.realtime.row div.col{ text-align: center; min-width: 124px; display: flex; flex-direction: column; align-items: center; }
 div.circle{ position: relative; width: 100px; height: 100px; padding-top: 30px; text-align: center; border-radius: 100px; border: 10px solid rgb(54, 162, 235); float: left; display: flex; flex-direction: column; align-items: center; }
-div.circle div.inner-box{ position: absolute; text-align: center; padding: 7px; min-width: 70px; height: 30px; bottom: -10px; border: 1px solid lightgray; background-color: white; }
+div.circle div.inner-box{ position: absolute; text-align: center; padding: 7px; min-width: 85px; height: 30px; bottom: -10px; border: 1px solid lightgray; background-color: white; }
 .col-xs-12, .col-sm-4, .col-md-4, .col-lg-4 img{ width: 100%; margin-top: 15px; text-align: center; }
 
 /*----------*/
@@ -42,11 +42,11 @@ input[type="checkbox"]:checked + label:before{ border-top: 2px solid transparent
 /*Because label importants are important :P*/
 label{ color: grey; }
 label[for="Temperature"]:before{ border-color: rgb(255, 99, 132) !important; }
+label[for="Humidity"]:before{ border-color: rgb(153, 102, 255) !important; }
 label[for="Air-pressure"]:before{ border-color: rgb(54, 162, 235) !important; }
 label[for="Air-quality"]:before{ border-color: rgb(75, 192, 192) !important; }
 label[for="Rain-gauge"]:before{ border-color: rgb(255, 159, 64) !important; }
 label[for="Wind-speed"]:before{ border-color: rgb(255, 205, 86) !important; }
-label[for="Wind-direction"]:before{ border-color: rgb(153, 102, 255) !important; }
 
 
 /*------*/
@@ -70,6 +70,7 @@ footer.fixed-footer{ position: fixed; bottom: 0; width: 100%; }
 .yellow-border{ border-color: rgb(255, 205, 86) !important; }
 .green-border{ border-color: rgb(75, 192, 192) !important; }
 .purple-border{ border-color: rgb(153, 102, 255) !important; }
+.grey-border{ border-color: rgb(231,233,237) !important; }
 .hidden{ display: none; }
 .warning{ font-size: 11px; color: red; }
 p.warning{ padding-left: 35px; }
@@ -88,10 +89,18 @@ p.warning{ padding-left: 35px; }
 	div.realtime.row div.col h5{ min-height: 35px; }
 }
 
+@media screen and (min-width: 601px)
+{
+	div.realtime div.col:nth-child(5){ margin-left: 12.5%; }
+
+}
+
 @media screen and (max-width: 600px)
 {
 	nav img.logo{ height: 58px; }
-	.graph{ display: none !important; }
+	div.realtime div.col:last-child{ margin-left: 25%; }
+
+	.graph, p.info{ display: none !important; }
 }
 /* #######################################################
 
@@ -209,8 +218,8 @@ http://vladimirkudinov.com
 .graph-info .visitors { border-bottom: 2px solid #71c73e; }
 .graph-info .returning { border-bottom: 2px solid #77b7c5; }
 
-.graph-info .visitors:before { background: #71c73e; }
-.graph-info .returning:before { background: #77b7c5; }
+.graph-info .visitors:before{ background: #71c73e; }
+.graph-info .returning:before{ background: #77b7c5; }
 
 /* Lines & Bars Buttons */
 #lines, #bars {

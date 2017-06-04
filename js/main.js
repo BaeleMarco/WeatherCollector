@@ -165,7 +165,7 @@ function ajaxCall(table,query){
 							}
 							//Non changing colors for each 
 							for (var o = 0; o < window.chartColors.length; o++){
-								if (window.chartColors[o][0] == table[i]) {
+								if (window.chartColors[o][0] == table[i]){
 									color = window.chartColors[o][1]
 								}
 							};
@@ -191,14 +191,17 @@ function ajaxCall(table,query){
 					}
 				}
 				window.myLine = new Chart(ctx, config);
+				//Upon creating the graph again scroll back to the bottom of the page
+				$("body").animate({ scrollTop: $(document).height()}, 'fast');
 			}else if(query == 'selectLast'){
-				units = ['&deg;C', 'Pa', '%', 'm&sup2;', 'm/s', '']
+				units = ['&deg;C', '%', 'Pa', '%', 'm&sup2;', 'km/u', '']
 				inputs = []
 				e = $('div.row.checkboxes')[0].innerText
 				e = e.replace(/Air /g,'Air-').replace(/Wind /g,'Wind-').replace(/Rain /g,'Rain-')
+				e = e + ' Wind-direction'
 				inputs = e.split(' ')
 
-				var realtimes = $('div.col.s6.m4.l2')
+				var realtimes = $('div.col.s6.m3')
 				for (var i = 0; i < realtimes.length; i++) {
 					realtimes[i].lastElementChild.firstElementChild.innerHTML = returnedData[0][inputs[i]] + units[i]
 					if(inputs[i] != 'Wind-direction'){
