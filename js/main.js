@@ -56,7 +56,7 @@ var config = {
 				},
 		tooltips: {
 			mode: 'index',
-			intersect: true
+			intersect: false
 		},
 		animation: {
 			duration: 500
@@ -194,7 +194,7 @@ function ajaxCall(table,query){
 				//Upon creating the graph again scroll back to the bottom of the page
 				$("body").animate({ scrollTop: $(document).height()}, 'fast');
 			}else if(query == 'selectLast'){
-				units = ['&deg;C', '%', 'Pa', '%', 'm&sup2;', 'km/u', '']
+				units = ['&deg;C', '%', 'Hg', '%', 'm&sup2;', 'km/h', '']
 				inputs = []
 				e = $('div.row.checkboxes')[0].innerText
 				e = e.replace(/Air /g,'Air-').replace(/Wind /g,'Wind-').replace(/Rain /g,'Rain-')

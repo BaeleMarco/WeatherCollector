@@ -24,7 +24,7 @@
 			<div class="circle blue-border">
 				<span></span>
 				<div class="inner-box">
-					Pa
+					Hg
 				</div>
 			</div>
 		</div>
@@ -51,7 +51,7 @@
 			<div class="circle yellow-border">
 				<span></span>
 				<div class="inner-box">
-					m/s
+					km/h
 				</div>
 			</div>
 		</div>
