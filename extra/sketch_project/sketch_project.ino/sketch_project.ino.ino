@@ -85,7 +85,7 @@ void loop(){
   vw_wait_tx();// Wait for all data to be sent
   
   //Wait a minute to collect more data
-  delay(60000);
+  delay(5000);
 }
 
 double returnTemperature(){
@@ -107,7 +107,7 @@ double returnHumidity(){
   float h = dht.readHumidity();
   if (isnan(h)) {
     Serial.println("Failed to read from DHT sensor!");
-    return true;
+    return 101.0;
   }
   return h;
 }
@@ -127,9 +127,9 @@ double returnPressure()
     {
       return P;
     }
-    else Serial.println("error retrieving pressure measurement\n");
+    else return 101.0;
   }
-  else Serial.println("error starting pressure measurement\n");
+  else return 101.0;
 }
 
 double returnRain(){
@@ -170,17 +170,7 @@ double returnAirQuality()
     float resistance = mq135_sensor.getResistance();
     float ppm = mq135_sensor.getPPM();
     float correctedPPM = mq135_sensor.getCorrectedPPM(returnTemperature(), returnHumidity());
-  
-    Serial.print("MQ135 RZero: ");
-    Serial.print(rzero);
-    Serial.print(" Corrected RZero: ");
-    Serial.print(correctedRZero);
-    Serial.print(" Resistance: ");
-    Serial.print(resistance);
-    Serial.print(" PPM: ");
-    Serial.print(ppm);
-    Serial.print(" Corrected PPM: ");
-    Serial.print(correctedPPM);
-    Serial.println("ppm");
-    return 0.0;
+
+    double procentQuality = correctedPPM / 10000;
+    return procentQuality;
 }

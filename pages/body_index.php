@@ -1,7 +1,7 @@
 <div class="container">
 	<h4>Real time values</h4>
 	<div class="realtime row">
-		<div class="col s6 m3">
+		<div class="col s6 m4 l2">
 			<h5>Temperature</h5>
 			<div class="circle red-border">
 				<span></span>
@@ -10,7 +10,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col s6 m3">
+		<div class="col s6 m4 l2">
 			<h5>Humidity</h5>
 			<div class="circle purple-border">
 				<span></span>
@@ -19,7 +19,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col s6 m3">
+		<div class="col s6 m4 l2">
 			<h5>Air pressure</h5>
 			<div class="circle blue-border">
 				<span></span>
@@ -28,7 +28,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col s6 m3">
+		<div class="col s6 m4 l2">
 			<h5>Air quality</h5>
 			<div class="circle green-border">
 				<span></span>
@@ -37,7 +37,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col s6 m3">
+		<div class="col s6 m4 l2">
 			<h5>Rain gauge</h5>
 			<div class="circle orange-border">
 				<span></span>
@@ -46,20 +46,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="col s6 m3">
+		<div class="col s6 m4 l2">
 			<h5>Wind speed</h5>
 			<div class="circle yellow-border">
 				<span></span>
 				<div class="inner-box">
 					km/h
-				</div>
-			</div>
-		</div>
-		<div class="col s6 m3">
-			<h5>Wind direction</h5>
-				<div class="circle grey-border">
-				<span></span>
-				<div class="inner-box">
 				</div>
 			</div>
 		</div>
@@ -105,11 +97,12 @@
 		<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
 	</ul>
 </div> -->
+<script type="text/javascript" src="js/chart-self.js"></script>
 <script type="text/javascript">
 	// window.setInterval(function(){
-		//Refreshing the realtime data every 5 seconds
+		//Refreshing the realtime data every minut
 		updatePage($('div.row.checkboxes')[0].innerText,'selectLast')
-	// }, 5000);
+	// }, 60000);
 
 	//Update onresize because default graph is empty
 	window.onresize = function(event){

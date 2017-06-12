@@ -15,4 +15,3 @@
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script type="text/javascript" src="js/chart/Chart.bundle.js"></script>
 <script type="text/javascript" src="js/chart/utils.js"></script>
-<script type="text/javascript" src="js/main.js"></script>

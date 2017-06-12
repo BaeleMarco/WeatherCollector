@@ -27,7 +27,7 @@ div.realtime.row{ text-align: center; }
 div.realtime.row div.col{ text-align: center; min-width: 124px; display: flex; flex-direction: column; align-items: center; }
 div.circle{ position: relative; width: 100px; height: 100px; padding-top: 30px; text-align: center; border-radius: 100px; border: 10px solid rgb(54, 162, 235); float: left; display: flex; flex-direction: column; align-items: center; }
 div.circle div.inner-box{ position: absolute; text-align: center; padding: 7px; min-width: 85px; height: 30px; bottom: -10px; border: 1px solid lightgray; background-color: white; }
-.col-xs-12, .col-sm-4, .col-md-4, .col-lg-4 img{ width: 100%; margin-top: 15px; text-align: center; }
+/*.col-xs-12, .col-sm-4, .col-md-4, .col-lg-4 img{ width: 100%; margin-top: 15px; text-align: center; }*/
 
 /*----------*/
 /*IMPORTANTS*/
@@ -63,6 +63,7 @@ footer.fixed-footer{ position: fixed; bottom: 0; width: 100%; }
 
 .lightgreen-text{ color: #73BA4C; }
 .green-text{ color: #64A043; }
+.red-text{ color: red; }
 .darkgreen-text{ color: #446D2D; }
 .red-border{ border-color: rgb(255, 99, 132) !important; }
 .blue-border{ border-color: rgb(54, 162, 235) !important; }
@@ -83,23 +84,21 @@ p.warning{ padding-left: 35px; }
 /*MEDIA QUERYS*/
 /*------------*/
 
+@media screen and (min-width: 1090px) and (max-width: 1200px)
+{
+	div.realtime.row{ min-width: 750px; }
+}
+
 @media screen and (max-width: 1024px)
 {
 	div.realtime.row div.col{ min-width: 119px; }
+	div.realtime.row{ min-width: 750px; }
 	div.realtime.row div.col h5{ min-height: 35px; }
-}
-
-@media screen and (min-width: 601px)
-{
-	div.realtime div.col:nth-child(5){ margin-left: 12.5%; }
-
 }
 
 @media screen and (max-width: 600px)
 {
 	nav img.logo{ height: 58px; }
-	div.realtime div.col:last-child{ margin-left: 25%; }
-
 	.graph, p.info{ display: none !important; }
 }
 /* #######################################################
