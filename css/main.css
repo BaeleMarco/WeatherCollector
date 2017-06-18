@@ -27,7 +27,6 @@ div.realtime.row{ text-align: center; }
 div.realtime.row div.col{ text-align: center; min-width: 124px; display: flex; flex-direction: column; align-items: center; }
 div.circle{ position: relative; width: 100px; height: 100px; padding-top: 30px; text-align: center; border-radius: 100px; border: 10px solid rgb(54, 162, 235); float: left; display: flex; flex-direction: column; align-items: center; }
 div.circle div.inner-box{ position: absolute; text-align: center; padding: 7px; min-width: 85px; height: 30px; bottom: -10px; border: 1px solid lightgray; background-color: white; }
-/*.col-xs-12, .col-sm-4, .col-md-4, .col-lg-4 img{ width: 100%; margin-top: 15px; text-align: center; }*/
 
 /*----------*/
 /*IMPORTANTS*/
@@ -92,15 +91,26 @@ p.warning{ padding-left: 35px; }
 @media screen and (max-width: 1024px)
 {
 	div.realtime.row div.col{ min-width: 119px; }
-	div.realtime.row{ min-width: 750px; }
 	div.realtime.row div.col h5{ min-height: 35px; }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1024px)
+{
+	div.realtime.row{ min-width: 750px; }
+}
+
+@media screen and (min-width: 601px) and (max-width: 992px)
+{
+	div.realtime div.col:nth-child(4){ margin-left: 17.5%; }
 }
 
 @media screen and (max-width: 600px)
 {
 	nav img.logo{ height: 58px; }
 	.graph, p.info{ display: none !important; }
+	div.realtime div.col:nth-child(5){ margin-left: 25%; }
 }
+
 /* #######################################################
 
 HOW TO CREATE AN INTERACTIVE GRAPH USING CSS3 & JQUERY [TUTORIAL]

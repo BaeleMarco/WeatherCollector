@@ -46,15 +46,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="col s6 m4 l2">
-			<h5>Wind speed</h5>
-			<div class="circle yellow-border">
-				<span></span>
-				<div class="inner-box">
-					km/h
-				</div>
-			</div>
-		</div>
 	</div>
 	<h4 class="graph">Graph</h4>
 	<canvas id="canvas" class="graph"></canvas>
@@ -80,23 +71,8 @@
 			<input type="checkbox" id="Rain-gauge" checked>
 			<label for="Rain-gauge">Rain gauge</label>
 		</div>
-		<div class="col m4">
-			<input type="checkbox" id="Wind-speed" checked>
-			<label for="Wind-speed">Wind speed</label>
-		</div>
 	</div>
 </div>
-<!-- <div class="fixed-action-btn">
-	<a class="btn-floating btn-large red">
-		<i class="large material-icons">mode_edit</i>
-	</a>
-	<ul>
-		<li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-		<li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-		<li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-		<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-	</ul>
-</div> -->
 <script type="text/javascript" src="js/chart-self.js"></script>
 <script type="text/javascript">
 	// window.setInterval(function(){
@@ -105,8 +81,10 @@
 	// }, 60000);
 
 	//Update onresize because default graph is empty
-	window.onresize = function(event){
-	    updatePage($('div.row.checkboxes')[0].innerText,'selectAll')
+	if ($(window).width() < 993){
+		window.onresize = function(event){
+		    updatePage($('div.row.checkboxes')[0].innerText,'selectAll')
+		}
 	}
 
 	$('div.row.checkboxes').on('change',function(e){ e.preventDefault(); $('p.info').hide(); updatePage(e,'selectAll'); });
