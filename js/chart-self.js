@@ -179,7 +179,12 @@ function ajaxCall(table,query){
                         specialSign = '<span class="red-text">&#x25BC;</span>' //-
                         diffrence = Number(String(diffrence).replace('-', ''))
                     }
-                    realtimes[i].lastElementChild.lastElementChild.innerHTML = specialSign + ' ' + diffrence + units[i]
+                    if(diffrence % 1 != 0){
+                        realtimes[i].lastElementChild.lastElementChild.innerHTML = specialSign + ' ' + diffrence.toFixed(2) + units[i]
+                    }
+                    else{
+                        realtimes[i].lastElementChild.lastElementChild.innerHTML = specialSign + ' ' + diffrence + units[i]
+                    }
                 }
             }else{
                 window.myLine.destroy();
